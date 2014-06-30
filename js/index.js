@@ -55,3 +55,7 @@ function update(i){
 	};
 }
 
+function download(){
+	window.location=$("#c_p")[0].toDataURL("image/png");
+}
+
