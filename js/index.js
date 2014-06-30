@@ -28,9 +28,9 @@ function getprofilepic(params) {
 				document.myPic=new Image();
 				document.myPic.src=json.picture;
 				document.myPic.onload = function(){
-					ctx = can.getContext('2d');
-					ctx.drawImage(document.myPic,0,0,512,512);
-				}
+					document.ctx = can.getContext('2d');
+					document.ctx.drawImage(document.myPic,0,0,512,512);
+				};
 				$("div#d_l").addClass("hidden");
 				$("div#d_p").removeClass("hidden");
 				for(i=0;i<addon.length;i++){
@@ -38,8 +38,19 @@ function getprofilepic(params) {
 					newbutton.className="btn btn-info";
 					newbutton.innerHTML=addon[i].name;
 					newbutton.onclick=function(){update(i)};
-					$("div$d_s").addChild(newbutton);
+					$("div#d_s").addChild(newbutton);
 				}
 				});
+}
+
+function update(i){
+	_ctx=document.ctx;
+	addonimg=new Image();
+	addonimg.src=addon[i].url;
+	addonimg.onload = function(){
+		_ctx.clearRect(0,0,512,512);
+		_ctx.drawImage(document.myPic,0,0,512,512);
+		_ctx.drawImage(addonimg,addon[i].local_x,addon[i].local_y,addon[i].size_x,addon[i].size_y);
+	};
 }
 
