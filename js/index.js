@@ -26,8 +26,8 @@ function getprofilepic(params) {
 	can.height=512;
 	$.getJSON('https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + params.access_token, function(json) {
 				document.myPic=new Image();
-				document.myPic.src=json.picture;
 				document.myPic.setAttribute('crossOrigin','anonymous');
+				document.myPic.src=json.picture;
 				document.myPic.onload = function(){
 					document.ctx = can.getContext('2d');
 					document.ctx.drawImage(document.myPic,0,0,512,512);
@@ -48,8 +48,8 @@ function getprofilepic(params) {
 function update(i){
 	_ctx=document.ctx;
 	addonimg=new Image();
-	addonimg.src=addon[i].url;
 	addonimg.crossOrigin.setAttribute('crossOrigin','anonymous');
+	addonimg.src=addon[i].url;
 	addonimg.onload = function(){
 		_ctx.clearRect(0,0,512,512);
 		_ctx.drawImage(document.myPic,0,0,512,512);
