@@ -76,7 +76,7 @@ function getprofilepic(params) {
 				$("div#d_p").removeClass("hidden");
 				for(i=0;i<addon.length;i++){
 					newbutton=document.createElement("button");
-					newbutton.className="btn btn-info";
+					newbutton.className="btn btn-info mybutton";
 					newbutton.innerHTML=addon[i].name;
 					newbutton.addonnum=i;
 					newbutton.onclick=function(){update(this.addonnum)};
