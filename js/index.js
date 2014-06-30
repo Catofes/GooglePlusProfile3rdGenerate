@@ -58,6 +58,7 @@ function update(i){
 }
 
 function download(){
-	window.location=$("#c_p")[0].toDataURL("image/png");
+	$("#a_d").attr("href",$("#c_p")[0].toDataURL("image/png")).attr("download","photo.png");
+	$("#a_d")[0].click();	
 }
 
