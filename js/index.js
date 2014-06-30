@@ -48,7 +48,7 @@ function getprofilepic(params) {
 function update(i){
 	_ctx=document.ctx;
 	addonimg=new Image();
-	addonimg.crossOrigin.setAttribute('crossOrigin','anonymous');
+	addonimg.setAttribute('crossOrigin','anonymous');
 	addonimg.src=addon[i].url;
 	addonimg.onload = function(){
 		_ctx.clearRect(0,0,512,512);
