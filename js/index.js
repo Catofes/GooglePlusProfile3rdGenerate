@@ -10,9 +10,13 @@ function login() {
 }
 
 function getprofilepic(params) {
-	console.log(params);
 	$.getJSON('https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + params.access_token, function(json) {
-				console.log(json);
+				document.myPic=new Image();
+				document.myPic.src=json.picture;
+				document.myPic.onload = function(){
+					ctx = $("#c_p").getContext('2d');
+					ctx.drawImage(document.myPic,0,0,500,500);
+				}
 				});
 }
 
