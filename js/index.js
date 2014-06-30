@@ -38,7 +38,7 @@ function getprofilepic(params) {
 					newbutton.className="btn btn-info";
 					newbutton.innerHTML=addon[i].name;
 					newbutton.onclick=function(){update(i)};
-					$("div#d_s").addChild(newbutton);
+					$("div#d_s")[0].addChild(newbutton);
 				}
 				});
 }
