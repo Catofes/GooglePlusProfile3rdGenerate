@@ -33,7 +33,7 @@ function getprofilepic(params) {
 				}
 				$("div#d_l").addClass("hidden");
 				$("div#d_p").removeClass("hidden");
-				for(i=0;i<addon.length();i++){
+				for(i=0;i<addon.length;i++){
 					newbutton=document.createElement("button");
 					newbutton.className="btn btn-info";
 					newbutton.innerHTML=addon[i].name;
