@@ -1,3 +1,14 @@
+addon=[
+{
+	'name'	:	"林",
+	'url'	:	"https://lh4.googleusercontent.com/-p_bkIPqFZaM/U7EZoLuoHFI/AAAAAAAADz0/R10DngRzrDo/s0/gplus_3rd_ribbon_blue.png",
+	'local_x'	:	0,
+	'local_y'	:	0,
+	'size_x'	:	512,
+	'size_y'	:	512,
+}
+];
+
 function login() {
 	var params = {
 		'clientid' : '618544633148-49ig7t4g8v32of46en9lab4bneusc1ib.apps.googleusercontent.com',
@@ -10,16 +21,24 @@ function login() {
 }
 
 function getprofilepic(params) {
-	can=document.createElement("canvas");
-	can.width=500;
-	can.height=500;
-	$("div#d_p").appendChild(can);
+	can=$("#c_p")[0];
+	can.width=512;
+	can.height=512;
 	$.getJSON('https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + params.access_token, function(json) {
 				document.myPic=new Image();
 				document.myPic.src=json.picture;
 				document.myPic.onload = function(){
 					ctx = can.getContext('2d');
-					ctx.drawImage(document.myPic,0,0,500,500);
+					ctx.drawImage(document.myPic,0,0,512,512);
+				}
+				$("div#d_l").addClass("hidden");
+				$("div#d_p").removeClass("hidden");
+				for(i=0;i<addon.length();i++){
+					newbutton=document.createElement("button");
+					newbutton.className="btn btn-info";
+					newbutton.innerHTML=addon[i].name;
+					newbutton.onclick=function(){update(i)};
+					$("div$d_s").addChild(newbutton);
 				}
 				});
 }
