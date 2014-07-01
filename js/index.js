@@ -207,7 +207,7 @@ Pan.prototype.wheelChange = function(e) {
 }
 
 Pan.prototype.DOMScroll = function(e) {
-	if(navigator.userAgent.toLowerCase().match(/firefox\/([\d.]+)/)))
+	if(navigator.userAgent.toLowerCase().match(/firefox\/([\d.]+)/))
 	  this.wheelChange(e);
 	$("#c_p")[0].stopEventBubble(e);
 }
