@@ -139,7 +139,7 @@ Pan.prototype.startPan = function(e) {
     this.dragging = true;
     this.lastX = (e.offsetX || e.layerX);
     this.lastY = (e.offsetY || e.layerY);
-    this.layer.div.style.cursor = "move";
+    this.div.style.cursor = "move";
     $("#c_p")[0].stopEventBubble(e);
 }
 
@@ -158,7 +158,7 @@ Pan.prototype.pan = function(e) {
 }
 
 Pan.prototype.endPan = function(e) {
-    this.layer.div.style.cursor = "default";
+    this.div.style.cursor = "default";
     this.dragging = false;
     $("#c_p")[0].stopEventBubble(e);
 }
@@ -172,7 +172,6 @@ Pan.prototype.active = function () {
     for(var i = 0, len = this.Events.length; i < len; i++) {
         var type = this.Events[i][0];
         var listener = this.Events[i][1];
-		_this=this;
-		$("#c_p").bind(type,_this,listener);
+		$("#c_p").bind(type,this,listener);
 	}
 }                
