@@ -116,43 +116,47 @@ function download(){
 
 $("#c_p")[0].div=$("#c_p")[0].parentNode;
 $("#c_p")[0].stopEventBubble = function(e) {
-    if (e.preventDefault) {
-        e.preventDefault();
-    } else {
-        e.returnValue = false;
-    }
+	if (e.preventDefault) {
+		e.preventDefault();
+	} else {
+		e.returnValue = false;
+	}
 
-    if (e && e.stopPropagation)
-        e.stopPropagation();
-    else
-        window.event.cancelBubble=true;
+	if (e && e.stopPropagation)
+	  e.stopPropagation();
+	else
+	  window.event.cancelBubble=true;
 }
 
 function Pan(layer) {
-    this.layer = layer;
-    this.div = layer.div;
-    this.active();
-    this.dragging = false;
+	this.layer = layer;
+	this.div = layer.div;
+	this.active();
+	this.dragging = false;
 }
 
 Pan.prototype.startPan = function(e) {
-    this.dragging = true;
-    this.lastX = (e.offsetX || e.layerX);
-    this.lastY = (e.offsetY || e.layerY);
-    this.div.style.cursor = "move";
-    $("#c_p")[0].stopEventBubble(e);
+	this.dragging = true;
+	this.lastX = (e.offsetX || e.layerX);
+	this.lastY = (e.offsetY || e.layerY);
+	this.div.style.cursor = "move";
+	$("#c_p")[0].stopEventBubble(e);
 }
 
 Pan.prototype.pan = function(e) {
-    if(this.dragging) {
-        var layer = this.layer;
-        var dx = (e.offsetX || e.layerX) - this.lastX;
-        var dy = (e.offsetY || e.layerY) - this.lastY;
-        this.lastX = (e.offsetX || e.layerX);
-        this.lastY = (e.offsetY || e.layerY);
+	if(this.dragging) {
+		var layer = this.layer;
+		var dx = (e.offsetX || e.layerX) - this.lastX;
+		var dy = (e.offsetY || e.layerY) - this.lastY;
+		this.lastX = (e.offsetX || e.layerX);
+		this.lastY = (e.offsetY || e.layerY);
 		if(!isNaN(document.activeaddon)){
 			addon[document.activeaddon].local_x+=dx;
 			addon[document.activeaddon].local_y+=dy;
+			if(addon[document.activeaddon].local_x<0)addon[document.activeaddon].local_x=0;
+			if(addon[document.activeaddon].local_x>512)addon[document.activeaddon].local_x=512;
+			if(addon[document.activeaddon].local_y<0)addon[document.activeaddon].local_y=0;
+			if(addon[document.activeaddon].local_y>512)addon[document.activeaddon].local_y=512;
 			redraw();
 		}
 	}
@@ -165,10 +169,23 @@ Pan.prototype.endPan = function(e) {
 	$("#c_p")[0].stopEventBubble(e);
 }
 
+Pan.prototype.wheelChange = function(e) {
+	var layer = this.layer;
+	var delta = (e.wheelDelta / 120) * 10;
+	addon[document.activeaddon].size_x*=(1+delta);
+	addon[document.activeaddon].size_y*=(1+delta);
+	$("#c_p")[0].stopEventBubble(e);
+}
+
+Pan.prototype.DOMScroll = function(e) {
+	$("#c_p")[0].stopEventBubble(e);
+}
+
 Pan.prototype.Events = [["mousedown", Pan.prototype.startPan],
 	["mousemove", Pan.prototype.pan],
-	["mouseup", Pan.prototype.endPan]];
-
+	["mouseup", Pan.prototype.endPan],
+	["mousewheel", Scale.prototype.wheelChange],
+	["DOMMouseScroll", Scale.prototype.DOMScroll]];
 
 Pan.prototype.active = function () {
 	for(var i = 0, len = this.Events.length; i < len; i++) {
