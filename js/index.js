@@ -71,7 +71,7 @@ function getprofilepic(params) {
 				document.myPic.onload = function(){
 					document.ctx = can.getContext('2d');
 					document.ctx.drawImage(document.myPic,0,0,512,512);
-					document.pan=new Pan(document.ctx);
+					document.pan=new Pan(can);
 				};
 				$("div#d_l").addClass("hidden");
 				$("div#d_p").removeClass("hidden");
@@ -114,7 +114,8 @@ function download(){
 }
 
 
-document.stopEventBubble = function(e) {
+$("#c_p")[0].div=$("#c_p")[0].parentNode;
+$("#c_p")[0].stopEventBubble = function(e) {
     if (e.preventDefault) {
         e.preventDefault();
     } else {
@@ -139,7 +140,7 @@ Pan.prototype.startPan = function(e) {
     this.lastX = (e.offsetX || e.layerX);
     this.lastY = (e.offsetY || e.layerY);
     this.layer.div.style.cursor = "move";
-    CanvasSketch.stopEventBubble(e);
+    $("#c_p")[0].stopEventBubble(e);
 }
 
 Pan.prototype.pan = function(e) {
@@ -153,13 +154,13 @@ Pan.prototype.pan = function(e) {
 		addon[document.activeaddon].local_y+=dy;
 		redraw();
 	}
-    CanvasSketch.stopEventBubble(e);
+    $("#c_p")[0].stopEventBubble(e);
 }
 
 Pan.prototype.endPan = function(e) {
     this.layer.div.style.cursor = "default";
     this.dragging = false;
-    CanvasSketch.stopEventBubble(e);
+    $("#c_p")[0].stopEventBubble(e);
 }
 
 Pan.prototype.Events = [["mousedown", Pan.prototype.startPan],
@@ -171,7 +172,7 @@ Pan.prototype.active = function () {
     for(var i = 0, len = this.Events.length; i < len; i++) {
         var type = this.Events[i][0];
         var listener = this.Events[i][1];
-        listener = CanvasSketch.bindAsEventListener(listener, this);
+        listener = $("#c_p")[0].bindAsEventListener(listener, this);
         this.div.addEventListener(type, listener, true);        
     }
 }                
