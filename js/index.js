@@ -173,6 +173,6 @@ Pan.prototype.active = function () {
         var type = this.Events[i][0];
         var listener = this.Events[i][1];
 		_this=this;
-		$("$c_p").bind(type,_this,listener);
+		$("#c_p").bind(type,_this,listener);
 	}
 }                
