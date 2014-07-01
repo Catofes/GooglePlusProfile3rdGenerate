@@ -153,10 +153,6 @@ Pan.prototype.pan = function(e) {
 		if(!isNaN(document.activeaddon)){
 			addon[document.activeaddon].local_x+=dx;
 			addon[document.activeaddon].local_y+=dy;
-			if(addon[document.activeaddon].local_x<0)addon[document.activeaddon].local_x=0;
-			if(addon[document.activeaddon].local_x>512)addon[document.activeaddon].local_x=512;
-			if(addon[document.activeaddon].local_y<0)addon[document.activeaddon].local_y=0;
-			if(addon[document.activeaddon].local_y>512)addon[document.activeaddon].local_y=512;
 			redraw();
 		}
 	}
@@ -171,7 +167,7 @@ Pan.prototype.endPan = function(e) {
 
 Pan.prototype.wheelChange = function(e) {
 	var layer = this.layer;
-	var delta = (e.wheelDelta / 120) * 10;
+	var delta = ((e.wheelDelta||e.originalEvent.wheelDelta) / 120) * 10;
 	if(!isNaN(document.activeaddon)){
 		addon[document.activeaddon].size_x*=(1+delta);
 		addon[document.activeaddon].size_y*=(1+delta);
