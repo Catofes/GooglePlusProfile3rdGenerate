@@ -172,8 +172,11 @@ Pan.prototype.endPan = function(e) {
 Pan.prototype.wheelChange = function(e) {
 	var layer = this.layer;
 	var delta = (e.wheelDelta / 120) * 10;
-	addon[document.activeaddon].size_x*=(1+delta);
-	addon[document.activeaddon].size_y*=(1+delta);
+	if(!isNaN(document.activeaddon)){
+		addon[document.activeaddon].size_x*=(1+delta);
+		addon[document.activeaddon].size_y*=(1+delta);
+		redraw();
+	}
 	$("#c_p")[0].stopEventBubble(e);
 }
 
@@ -184,8 +187,8 @@ Pan.prototype.DOMScroll = function(e) {
 Pan.prototype.Events = [["mousedown", Pan.prototype.startPan],
 	["mousemove", Pan.prototype.pan],
 	["mouseup", Pan.prototype.endPan],
-	["mousewheel", Scale.prototype.wheelChange],
-	["DOMMouseScroll", Scale.prototype.DOMScroll]];
+	["mousewheel", Pan.prototype.wheelChange],
+	["DOMMouseScroll", Pan.prototype.DOMScroll]];
 
 Pan.prototype.active = function () {
 	for(var i = 0, len = this.Events.length; i < len; i++) {
