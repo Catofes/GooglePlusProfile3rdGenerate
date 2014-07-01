@@ -163,8 +163,8 @@ function Pan(layer) {
 
 Pan.prototype.startPan = function(e) {
 	this.dragging = true;
-	this.lastX = (e.offsetX || e.layerX);
-	this.lastY = (e.offsetY || e.layerY);
+	this.lastX = (e.offsetX || e.layerX || e.pageX);
+	this.lastY = (e.offsetY || e.layerY || e.pageY);
 	this.div.style.cursor = "move";
 	$("#c_p")[0].stopEventBubble(e);
 }
@@ -172,10 +172,10 @@ Pan.prototype.startPan = function(e) {
 Pan.prototype.pan = function(e) {
 	if(this.dragging) {
 		var layer = this.layer;
-		var dx = (e.offsetX || e.layerX) - this.lastX;
-		var dy = (e.offsetY || e.layerY) - this.lastY;
-		this.lastX = (e.offsetX || e.layerX);
-		this.lastY = (e.offsetY || e.layerY);
+		var dx = (e.offsetX || e.layerX || e.pageX) - this.lastX;
+		var dy = (e.offsetY || e.layerY || e.pageY) - this.lastY;
+		this.lastX = (e.offsetX || e.layerX || e.pageX);
+		this.lastY = (e.offsetY || e.layerY || e.pageY);
 		if(!isNaN(document.activeaddon)){
 			if(addon[document.activeaddon].allowmove==1){
 				addon[document.activeaddon].local_x+=dx;
