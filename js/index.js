@@ -71,6 +71,7 @@ function getprofilepic(params) {
 				document.myPic.onload = function(){
 					document.ctx = can.getContext('2d');
 					document.ctx.drawImage(document.myPic,0,0,512,512);
+					document.pan=new Pan(ctx);
 				};
 				$("div#d_l").addClass("hidden");
 				$("div#d_p").removeClass("hidden");
@@ -90,6 +91,8 @@ function update(i){
 	addonimg=new Image();
 	addonimg.setAttribute('crossOrigin','anonymous');
 	addonimg.src=addon[i].url;
+	document.addonimg=addonimg;
+	document.activeaddon=i;
 	addonimg.onload = function(){
 		_ctx.clearRect(0,0,512,512);
 		_ctx.drawImage(document.myPic,0,0,512,512);
@@ -97,8 +100,78 @@ function update(i){
 	};
 }
 
+function redraw(){
+	_ctx=document.ctx;
+	_i=document.activeaddon;
+	_ctx.clearRect(0,0,512,512);
+	_ctx.drawImage(document.myPic,0,0,512,512);
+	_ctx.drawImage(document.addonimg,addon[_i].local_x,addon[_i].local_y,addon[_i].size_x,addon[_i].size_y);
+}
+
 function download(){
 	$("#a_d").attr("href",$("#c_p")[0].toDataURL("image/png")).attr("download","photo.png");
 	$("#a_d")[0].click();	
 }
 
+
+document.stopEventBubble = function(e) {
+    if (e.preventDefault) {
+        e.preventDefault();
+    } else {
+        e.returnValue = false;
+    }
+
+    if (e && e.stopPropagation)
+        e.stopPropagation();
+    else
+        window.event.cancelBubble=true;
+}
+
+function Pan(layer) {
+    this.layer = layer;
+    this.div = layer.div;
+    this.active();
+    this.dragging = false;
+}
+
+Pan.prototype.startPan = function(e) {
+    this.dragging = true;
+    this.lastX = (e.offsetX || e.layerX);
+    this.lastY = (e.offsetY || e.layerY);
+    this.layer.div.style.cursor = "move";
+    CanvasSketch.stopEventBubble(e);
+}
+
+Pan.prototype.pan = function(e) {
+    if(this.dragging) {
+        var layer = this.layer;
+        var dx = (e.offsetX || e.layerX) - this.lastX;
+        var dy = (e.offsetY || e.layerY) - this.lastY;
+        this.lastX = (e.offsetX || e.layerX);
+        this.lastY = (e.offsetY || e.layerY);
+    	addon[document.activeaddon].local_x-=dx;
+		addon[document.activeaddon].local_y+=dy;
+		redraw();
+	}
+    CanvasSketch.stopEventBubble(e);
+}
+
+Pan.prototype.endPan = function(e) {
+    this.layer.div.style.cursor = "default";
+    this.dragging = false;
+    CanvasSketch.stopEventBubble(e);
+}
+
+Pan.prototype.Events = [["mousedown", Pan.prototype.startPan],
+                        ["mousemove", Pan.prototype.pan],
+                        ["mouseup", Pan.prototype.endPan]];
+
+                        
+Pan.prototype.active = function () {
+    for(var i = 0, len = this.Events.length; i < len; i++) {
+        var type = this.Events[i][0];
+        var listener = this.Events[i][1];
+        listener = CanvasSketch.bindAsEventListener(listener, this);
+        this.div.addEventListener(type, listener, true);        
+    }
+}                
