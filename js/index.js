@@ -150,28 +150,30 @@ Pan.prototype.pan = function(e) {
         var dy = (e.offsetY || e.layerY) - this.lastY;
         this.lastX = (e.offsetX || e.layerX);
         this.lastY = (e.offsetY || e.layerY);
-    	addon[document.activeaddon].local_x+=dx;
-		addon[document.activeaddon].local_y+=dy;
-		redraw();
+		if(!isNaN(document.activeaddon)){
+			addon[document.activeaddon].local_x+=dx;
+			addon[document.activeaddon].local_y+=dy;
+			redraw();
+		}
 	}
-    $("#c_p")[0].stopEventBubble(e);
+	$("#c_p")[0].stopEventBubble(e);
 }
 
 Pan.prototype.endPan = function(e) {
-    this.div.style.cursor = "default";
-    this.dragging = false;
-    $("#c_p")[0].stopEventBubble(e);
+	this.div.style.cursor = "default";
+	this.dragging = false;
+	$("#c_p")[0].stopEventBubble(e);
 }
 
 Pan.prototype.Events = [["mousedown", Pan.prototype.startPan],
-                        ["mousemove", Pan.prototype.pan],
-                        ["mouseup", Pan.prototype.endPan]];
+	["mousemove", Pan.prototype.pan],
+	["mouseup", Pan.prototype.endPan]];
 
-                        
+
 Pan.prototype.active = function () {
-    for(var i = 0, len = this.Events.length; i < len; i++) {
-        var type = this.Events[i][0];
-        var listener = this.Events[i][1];
+	for(var i = 0, len = this.Events.length; i < len; i++) {
+		var type = this.Events[i][0];
+		var listener = this.Events[i][1];
 		$("#c_p").bind(type,this,listener);
 	}
 }                
