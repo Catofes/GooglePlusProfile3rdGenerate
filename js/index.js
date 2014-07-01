@@ -207,8 +207,17 @@ Pan.prototype.wheelChange = function(e) {
 }
 
 Pan.prototype.DOMScroll = function(e) {
-	if(navigator.userAgent.toLowerCase().match(/firefox\/([\d.]+)/))
-	  document.pan.wheelChange(e);
+	if(navigator.userAgent.toLowerCase().match(/firefox\/([\d.]+)/)){
+		var layer = this.layer;
+		var delta = ((e.detail||e.originalEvent.detail) / 3) * 0.1;
+		if(!isNaN(document.activeaddon)){
+			if(addon[document.activeaddon].allowmove==1){
+				addon[document.activeaddon].size_x*=(1+delta);
+				addon[document.activeaddon].size_y*=(1+delta);
+				redraw();
+			}
+		}
+	}
 	$("#c_p")[0].stopEventBubble(e);
 }
 
