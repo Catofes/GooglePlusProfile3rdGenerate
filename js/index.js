@@ -71,7 +71,7 @@ function getprofilepic(params) {
 				document.myPic.onload = function(){
 					document.ctx = can.getContext('2d');
 					document.ctx.drawImage(document.myPic,0,0,512,512);
-					document.pan=new Pan(ctx);
+					document.pan=new Pan(document.ctx);
 				};
 				$("div#d_l").addClass("hidden");
 				$("div#d_p").removeClass("hidden");
