@@ -150,7 +150,7 @@ Pan.prototype.pan = function(e) {
         var dy = (e.offsetY || e.layerY) - this.lastY;
         this.lastX = (e.offsetX || e.layerX);
         this.lastY = (e.offsetY || e.layerY);
-    	addon[document.activeaddon].local_x-=dx;
+    	addon[document.activeaddon].local_x+=dx;
 		addon[document.activeaddon].local_y+=dy;
 		redraw();
 	}
@@ -172,6 +172,7 @@ Pan.prototype.active = function () {
     for(var i = 0, len = this.Events.length; i < len; i++) {
         var type = this.Events[i][0];
         var listener = this.Events[i][1];
-		$("$c_p").bind(type,this,listener);
+		_this=this;
+		$("$c_p").bind(type,_this,listener);
 	}
 }                
