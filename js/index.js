@@ -167,7 +167,7 @@ Pan.prototype.endPan = function(e) {
 
 Pan.prototype.wheelChange = function(e) {
 	var layer = this.layer;
-	var delta = ((e.wheelDelta||e.originalEvent.wheelDelta) / 120) * 10;
+	var delta = ((e.wheelDelta||e.originalEvent.wheelDelta) / 120) * 0.1;
 	if(!isNaN(document.activeaddon)){
 		addon[document.activeaddon].size_x*=(1+delta);
 		addon[document.activeaddon].size_y*=(1+delta);
