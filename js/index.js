@@ -6,6 +6,7 @@ addon=[
 	'local_y'	:	0,
 	'size_x'	:	512,
 	'size_y'	:	512,
+	'allowmove'	:	1,
 },
 {
 	'name'	:	"林2",
@@ -14,6 +15,7 @@ addon=[
 	'local_y'	:	0,
 	'size_x'	:	512,
 	'size_y'	:	512,
+	'allowmove'	:	1,
 },
 {
 	'name'	:	"林3",
@@ -22,6 +24,7 @@ addon=[
 	'local_y'	:	0,
 	'size_x'	:	512,
 	'size_y'	:	512,
+	'allowmove'	:	1,
 },
 {
 	'name'	:	"林4",
@@ -30,6 +33,7 @@ addon=[
 	'local_y'	:	0,
 	'size_x'	:	512,
 	'size_y'	:	512,
+	'allowmove'	:	1,
 },
 {
 	'name'	:	"林5",
@@ -38,6 +42,7 @@ addon=[
 	'local_y'	:	0,
 	'size_x'	:	512,
 	'size_y'	:	512,
+	'allowmove'	:	1,
 },
 {
 	'name'	:	"林6",
@@ -46,7 +51,28 @@ addon=[
 	'local_y'	:	0,
 	'size_x'	:	512,
 	'size_y'	:	512,
+	'allowmove'	:	1,
+},
+{
+	'name'	:	"Sanae Aprocy 1",
+	'url'	:	"https://lh6.googleusercontent.com/-4LfirvFYKeA/U7FyncrA6lI/AAAAAAAAD00/gcIrGlJarB4/s0/asnya.png",
+	'local_x'	:	100,
+	'local_y'	:	100,
+	'size_x'	:	256,
+	'size_y'	:	256,
+	'allowmove'	:	1,
+},
+{
+	'name'	:	"Sanae Aprocy 2",
+	'url'	:	"https://lh6.googleusercontent.com/-pB75OMt1Ai4/U7Fyn3GIB4I/AAAAAAAAD04/Gm-3aEcajXU/s0/ASchan.png",
+	'local_x'	:	0,
+	'local_y'	:	200,
+	'size_x'	:	512,
+	'size_y'	:	384,
+	'allowmove'	:	1,
 }
+
+
 ];
 
 function login() {
@@ -151,9 +177,11 @@ Pan.prototype.pan = function(e) {
 		this.lastX = (e.offsetX || e.layerX);
 		this.lastY = (e.offsetY || e.layerY);
 		if(!isNaN(document.activeaddon)){
-			addon[document.activeaddon].local_x+=dx;
-			addon[document.activeaddon].local_y+=dy;
-			redraw();
+			if(addon[document.activeaddon].allowmove==1){
+				addon[document.activeaddon].local_x+=dx;
+				addon[document.activeaddon].local_y+=dy;
+				redraw();
+			}
 		}
 	}
 	$("#c_p")[0].stopEventBubble(e);
@@ -169,9 +197,11 @@ Pan.prototype.wheelChange = function(e) {
 	var layer = this.layer;
 	var delta = ((e.wheelDelta||e.originalEvent.wheelDelta) / 120) * 0.1;
 	if(!isNaN(document.activeaddon)){
-		addon[document.activeaddon].size_x*=(1+delta);
-		addon[document.activeaddon].size_y*=(1+delta);
-		redraw();
+		if(addon[document.activeaddon].allowmove==1){
+			addon[document.activeaddon].size_x*=(1+delta);
+			addon[document.activeaddon].size_y*=(1+delta);
+			redraw();
+		}
 	}
 	$("#c_p")[0].stopEventBubble(e);
 }
