@@ -1,7 +1,7 @@
 addon=[
 {
-	'name'	:	"林1",
-	'url'	:	"https://lh3.googleusercontent.com/-gDmP7fgW0Z0/U7AkVYdxbmI/AAAAAAAADzg/xH6C_PxjR1E/s0/gplus_3rd_ribbon.png",
+	'name'	:	"简单g+4图标",
+	'url'	:	"https://lh4.googleusercontent.com/-NouNZznmUoA/VZPSOhQ-DDI/AAAAAAAAEEI/4Wf9GJ8hGfw/s865-no/g%252B4th-t.png",
 	'local_x'	:	0,
 	'local_y'	:	0,
 	'size_x'	:	512,
@@ -9,8 +9,8 @@ addon=[
 	'allowmove'	:	1,
 },
 {
-	'name'	:	"林2",
-	'url'	:	"https://lh6.googleusercontent.com/-uI3-3ISOv6w/U7EXypdoP8I/AAAAAAAADzE/deyCNsNfm60/s0/gplus_3rd_ribbon.png",
+	'name'	:	"极简+4图标",
+	'url'	:	"https://lh3.googleusercontent.com/-8ReUv-_TTmA/VZPuztzkiEI/AAAAAAAAEEw/Tq2qbf4I22w/s189-no/4th-glow.png",
 	'local_x'	:	0,
 	'local_y'	:	0,
 	'size_x'	:	512,
@@ -18,8 +18,8 @@ addon=[
 	'allowmove'	:	1,
 },
 {
-	'name'	:	"林3",
-	'url'	:	"https://lh4.googleusercontent.com/-p_bkIPqFZaM/U7EZoLuoHFI/AAAAAAAADz0/R10DngRzrDo/s0/gplus_3rd_ribbon_blue.png",
+	'name'	:	"极简+4图标（无发光）",
+	'url'	:	"https://lh3.googleusercontent.com/-b78XjaLpIEA/VZPPUHAd8lI/AAAAAAAAEDM/BOPiH2zj1hE/s189-no/4th.png",
 	'local_x'	:	0,
 	'local_y'	:	0,
 	'size_x'	:	512,
@@ -27,8 +27,8 @@ addon=[
 	'allowmove'	:	1,
 },
 {
-	'name'	:	"林4",
-	'url'	:	"https://lh4.googleusercontent.com/-31oeV-S_eMg/U7EZoIlCjwI/AAAAAAAADz4/TetmxPux-Fc/s0/gplus_3rd_ribbon_cold.png",
+	'name'	:	"红色挂坠",
+	'url'	:	"https://lh3.googleusercontent.com/-sMXKqAnFwT4/VZPqtIE4KTI/AAAAAAAAEEY/val7GC4uDXg/w258-h280-no/g%252B4th-pendant.png",
 	'local_x'	:	0,
 	'local_y'	:	0,
 	'size_x'	:	512,
@@ -36,8 +36,8 @@ addon=[
 	'allowmove'	:	1,
 },
 {
-	'name'	:	"林5",
-	'url'	:	"https://lh3.googleusercontent.com/-APf_W00s6e0/U7EZoBIZuyI/AAAAAAAAD0A/XWHNUFHaxzA/s0/gplus_3rd_ribbon_green.png",
+	'name'	:	"红色按钮图标",
+	'url'	:	"https://lh5.googleusercontent.com/-hOANWMnGBMM/VZPHcXSteJI/AAAAAAAAEBE/mKoDXn59x3Y/s224-no/g%252B4th.png",
 	'local_x'	:	0,
 	'local_y'	:	0,
 	'size_x'	:	512,
@@ -45,34 +45,14 @@ addon=[
 	'allowmove'	:	1,
 },
 {
-	'name'	:	"林6",
-	'url'	:	"https://lh3.googleusercontent.com/-56vD8eP0ROA/U7EZoxu0PBI/AAAAAAAADz8/iPVGe86oYV0/s0/gplus_3rd_ribbon_warm.png",
+	'name'	:	"白色按钮图标",
+	'url'	:	"https://lh5.googleusercontent.com/-e89rLPZT5jg/VZPHcXDJykI/AAAAAAAAEBI/tw6uotRUBjk/s189-no/g%252B4th-w.png",
 	'local_x'	:	0,
 	'local_y'	:	0,
 	'size_x'	:	512,
 	'size_y'	:	512,
-	'allowmove'	:	1,
-},
-{
-	'name'	:	"Sanae Aprocy 1",
-	'url'	:	"https://lh6.googleusercontent.com/-4LfirvFYKeA/U7FyncrA6lI/AAAAAAAAD00/gcIrGlJarB4/s0/asnya.png",
-	'local_x'	:	100,
-	'local_y'	:	100,
-	'size_x'	:	256,
-	'size_y'	:	256,
-	'allowmove'	:	1,
-},
-{
-	'name'	:	"Sanae Aprocy 2",
-	'url'	:	"https://lh6.googleusercontent.com/-pB75OMt1Ai4/U7Fyn3GIB4I/AAAAAAAAD04/Gm-3aEcajXU/s0/ASchan.png",
-	'local_x'	:	0,
-	'local_y'	:	200,
-	'size_x'	:	512,
-	'size_y'	:	384,
 	'allowmove'	:	1,
 }
-
-
 ];
 
 function login() {
