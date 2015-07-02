@@ -173,32 +173,32 @@ Pan.prototype.startPan = function(e) {
 
 Pan.prototype.pan = function(e) {
 	if(this.dragging) {
-		if(this.mouse === "left"){
-			var layer = this.layer;
-			var dx = (e.offsetX || e.layerX || e.pageX) - this.lastX;
-			var dy = (e.offsetY || e.layerY || e.pageY) - this.lastY;
-			this.lastX = (e.offsetX || e.layerX || e.pageX);
-			this.lastY = (e.offsetY || e.layerY || e.pageY);
-			if(!isNaN(document.activeaddon)){
-				if(addon[document.activeaddon].allowmove==1){
-					addon[document.activeaddon].local_x+=dx;
-					addon[document.activeaddon].local_y+=dy;
-					redraw();
-				}
+		//	if(this.mouse === "left"){
+		var layer = this.layer;
+		var dx = (e.offsetX || e.layerX || e.pageX) - this.lastX;
+		var dy = (e.offsetY || e.layerY || e.pageY) - this.lastY;
+		this.lastX = (e.offsetX || e.layerX || e.pageX);
+		this.lastY = (e.offsetY || e.layerY || e.pageY);
+		if(!isNaN(document.activeaddon)){
+			if(addon[document.activeaddon].allowmove==1){
+				addon[document.activeaddon].local_x+=dx;
+				addon[document.activeaddon].local_y+=dy;
+				redraw();
 			}
-		}else{
-			var layer = this.layer;
-			var dx = (e.offsetX || e.layerX || e.pageX) - this.lastX;
-			var dy = (e.offsetY || e.layerY || e.pageY) - this.lastY;
-			this.lastX = (e.offsetX || e.layerX || e.pageX);
-			this.lastY = (e.offsetY || e.layerY || e.pageY);
-			if(!isNaN(document.activeaddon)){
-				if(addon[document.activeaddon].allowmove==1){
-					addon[document.activeaddon].angle+=dx/Math.abs(dx)*Math.sqrt(dx*dx+dy*dy)/100;
-					redraw();
-				}   
-			}  
 		}
+		//	}else{
+		//		var layer = this.layer;
+		//		var dx = (e.offsetX || e.layerX || e.pageX) - this.lastX;
+		//		var dy = (e.offsetY || e.layerY || e.pageY) - this.lastY;
+		//		this.lastX = (e.offsetX || e.layerX || e.pageX);
+		//		this.lastY = (e.offsetY || e.layerY || e.pageY);
+		//		if(!isNaN(document.activeaddon)){
+		//			if(addon[document.activeaddon].allowmove==1){
+		//				addon[document.activeaddon].angle+=dx/Math.abs(dx)*Math.sqrt(dx*dx+dy*dy)/100;
+		//				redraw();
+		//			}   
+		//		}  
+		//	}
 	}
 	$("#c_p")[0].stopEventBubble(e);
 }
