@@ -99,11 +99,11 @@ function getprofilepic(params) {
 }
 
 function rotateAndPaintImage ( context, image, angleInRad , positionX, positionY, axisX, axisY ) {
-	context.translate( positionX, positionY );
+	context.translate( positionX+axisX/2, positionY-axisY/2 );
 	context.rotate( angleInRad );
 	context.drawImage( image, 0, 0, axisX, axisY );
 	context.rotate( -angleInRad );
-	context.translate( -positionX, -positionY );
+	context.translate( -positionX-axisX/2, -positionY-axisY/2 );
 }
 
 function update(i){
@@ -117,7 +117,7 @@ function update(i){
 		_ctx.clearRect(0,0,512,512);
 		_ctx.drawImage(document.myPic,0,0,512,512);
 		//_ctx.drawImage(addonimg,addon[i].local_x,addon[i].local_y,addon[i].size_x,addon[i].size_y);
-		rotateAndPaintImage(_ctx, addonimg, addon[i].angle, addon[i].local_x-addon[i].size_x/2,addon[i].local_y-addon[i].size_y/2,addon[i].size_x,addon[i].size_y);
+		rotateAndPaintImage(_ctx, addonimg, addon[i].angle, addon[i].local_x,addon[i].local_y,addon[i].size_x,addon[i].size_y);
 	};
 }
 
@@ -127,7 +127,7 @@ function redraw(){
 	_ctx.clearRect(0,0,512,512);
 	_ctx.drawImage(document.myPic,0,0,512,512);
 	//_ctx.drawImage(document.addonimg,addon[_i].local_x,addon[_i].local_y,addon[_i].size_x,addon[_i].size_y);
-	rotateAndPaintImage(_ctx, document.addonimg, addon[_i].angle, addon[_i].local_x-addon[_i].size_x/2,addon[_i].local_y-addon[_i].size_y/2,addon[_i].size_x,addon[_i].size_y);
+	rotateAndPaintImage(_ctx, document.addonimg, addon[_i].angle, addon[_i].local_x,addon[_i].local_y,addon[_i].size_x,addon[_i].size_y);
 }
 
 function download(){
