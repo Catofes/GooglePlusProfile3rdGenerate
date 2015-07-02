@@ -127,7 +127,7 @@ function redraw(){
 	_ctx.clearRect(0,0,512,512);
 	_ctx.drawImage(document.myPic,0,0,512,512);
 	//_ctx.drawImage(document.addonimg,addon[_i].local_x,addon[_i].local_y,addon[_i].size_x,addon[_i].size_y);
-	rotateAndPaintImage(_ctx, document.addonimg,addon[_i].local_x,addon[_i].local_y,addon[_i].size_x,addon[_i].size_y);
+	rotateAndPaintImage(_ctx, document.addonimg, addon[i].angle, addon[_i].local_x,addon[_i].local_y,addon[_i].size_x,addon[_i].size_y);
 }
 
 function download(){
@@ -173,7 +173,7 @@ Pan.prototype.startPan = function(e) {
 
 Pan.prototype.pan = function(e) {
 	if(this.dragging) {
-		if(this.mouse === "left"){
+		if(this.mouse == "left"){
 			var layer = this.layer;
 			var dx = (e.offsetX || e.layerX || e.pageX) - this.lastX;
 			var dy = (e.offsetY || e.layerY || e.pageY) - this.lastY;
