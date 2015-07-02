@@ -6,6 +6,7 @@ addon=[
 	'local_y'	:	128,
 	'size_x'	:	256,
 	'size_y'	:	256,
+	'angle'		:	0,
 	'allowmove'	:	1,
 },
 {
@@ -15,6 +16,7 @@ addon=[
 	'local_y'	:	128,
 	'size_x'	:	256,
 	'size_y'	:	256,
+	'angle'		:	0,
 	'allowmove'	:	1,
 },
 {
@@ -24,6 +26,7 @@ addon=[
 	'local_y'	:	128,
 	'size_x'	:	256,
 	'size_y'	:	256,
+	'angle'		:	0,
 	'allowmove'	:	1,
 },
 {
@@ -33,6 +36,7 @@ addon=[
 	'local_y'	:	128,
 	'size_x'	:	256,
 	'size_y'	:	256,
+	'angle'		:	0,
 	'allowmove'	:	1,
 },
 {
@@ -42,6 +46,7 @@ addon=[
 	'local_y'	:	128,
 	'size_x'	:	256,
 	'size_y'	:	256,
+	'angle'		:	0,
 	'allowmove'	:	1,
 },
 {
@@ -51,6 +56,7 @@ addon=[
 	'local_y'	:	128,
 	'size_x'	:	256,
 	'size_y'	:	256,
+	'angle'		:	0,
 	'allowmove'	:	1,
 }
 ];
@@ -92,6 +98,14 @@ function getprofilepic(params) {
 				});
 }
 
+function rotateAndPaintImage ( context, image, angleInRad , positionX, positionY, axisX, axisY ) {
+	context.translate( positionX, positionY );
+	context.rotate( angleInRad );
+	context.drawImage( image, -axisX, -axisY );
+	context.rotate( -angleInRad );
+	context.translate( -positionX, -positionY );
+}
+
 function update(i){
 	_ctx=document.ctx;
 	addonimg=new Image();
@@ -102,7 +116,8 @@ function update(i){
 	addonimg.onload = function(){
 		_ctx.clearRect(0,0,512,512);
 		_ctx.drawImage(document.myPic,0,0,512,512);
-		_ctx.drawImage(addonimg,addon[i].local_x,addon[i].local_y,addon[i].size_x,addon[i].size_y);
+		//_ctx.drawImage(addonimg,addon[i].local_x,addon[i].local_y,addon[i].size_x,addon[i].size_y);
+		rotateAndPaintImage(_ctx, addonimg, angle, addon[i].local_x,addon[i].local_y,addon[i].size_x,addon[i].size_y);
 	};
 }
 
@@ -111,7 +126,8 @@ function redraw(){
 	_i=document.activeaddon;
 	_ctx.clearRect(0,0,512,512);
 	_ctx.drawImage(document.myPic,0,0,512,512);
-	_ctx.drawImage(document.addonimg,addon[_i].local_x,addon[_i].local_y,addon[_i].size_x,addon[_i].size_y);
+	//_ctx.drawImage(document.addonimg,addon[_i].local_x,addon[_i].local_y,addon[_i].size_x,addon[_i].size_y);
+	rotateAndPaintImage(_ctx, addonimg, angle, addon[i].local_x,addon[i].local_y,addon[i].size_x,addon[i].size_y);
 }
 
 function download(){
@@ -139,6 +155,7 @@ function Pan(layer) {
 	this.div = layer.div;
 	this.active();
 	this.dragging = false;
+	this.mouse = 'left';
 }
 
 Pan.prototype.startPan = function(e) {
@@ -146,22 +163,41 @@ Pan.prototype.startPan = function(e) {
 	this.lastX = (e.offsetX || e.layerX || e.pageX);
 	this.lastY = (e.offsetY || e.layerY || e.pageY);
 	this.div.style.cursor = "move";
+	if(e.button==2||e.button==3){
+		this.mouse = "right";
+	}else{
+		this.mouse = "left";
+	}
 	$("#c_p")[0].stopEventBubble(e);
 }
 
 Pan.prototype.pan = function(e) {
 	if(this.dragging) {
-		var layer = this.layer;
-		var dx = (e.offsetX || e.layerX || e.pageX) - this.lastX;
-		var dy = (e.offsetY || e.layerY || e.pageY) - this.lastY;
-		this.lastX = (e.offsetX || e.layerX || e.pageX);
-		this.lastY = (e.offsetY || e.layerY || e.pageY);
-		if(!isNaN(document.activeaddon)){
-			if(addon[document.activeaddon].allowmove==1){
-				addon[document.activeaddon].local_x+=dx;
-				addon[document.activeaddon].local_y+=dy;
-				redraw();
+		if(this.mouse === "left"){
+			var layer = this.layer;
+			var dx = (e.offsetX || e.layerX || e.pageX) - this.lastX;
+			var dy = (e.offsetY || e.layerY || e.pageY) - this.lastY;
+			this.lastX = (e.offsetX || e.layerX || e.pageX);
+			this.lastY = (e.offsetY || e.layerY || e.pageY);
+			if(!isNaN(document.activeaddon)){
+				if(addon[document.activeaddon].allowmove==1){
+					addon[document.activeaddon].local_x+=dx;
+					addon[document.activeaddon].local_y+=dy;
+					redraw();
+				}
 			}
+		}else{
+			var layer = this.layer;
+			var dx = (e.offsetX || e.layerX || e.pageX) - this.lastX;
+			var dy = (e.offsetY || e.layerY || e.pageY) - this.lastY;
+			this.lastX = (e.offsetX || e.layerX || e.pageX);
+			this.lastY = (e.offsetY || e.layerY || e.pageY);
+			if(!isNaN(document.activeaddon)){
+				if(addon[document.activeaddon].allowmove==1){
+					addon[document.activeaddon].angle+=dx/Math.abs(dx)*Math.sqrt(dx*dx+dy*dy)/100;
+					redraw();
+				}   
+			}  
 		}
 	}
 	$("#c_p")[0].stopEventBubble(e);
