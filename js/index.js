@@ -117,7 +117,7 @@ function update(i){
 		_ctx.clearRect(0,0,512,512);
 		_ctx.drawImage(document.myPic,0,0,512,512);
 		//_ctx.drawImage(addonimg,addon[i].local_x,addon[i].local_y,addon[i].size_x,addon[i].size_y);
-		rotateAndPaintImage(_ctx, addonimg, addon[i].angle, addon[i].local_x,addon[i].local_y,addon[i].size_x,addon[i].size_y);
+		rotateAndPaintImage(_ctx, addonimg, addon[i].angle, addon[i].local_x-addon[i].size_x/2,addon[i].local_y-addon[i].size_y/2,addon[i].size_x,addon[i].size_y);
 	};
 }
 
@@ -127,7 +127,7 @@ function redraw(){
 	_ctx.clearRect(0,0,512,512);
 	_ctx.drawImage(document.myPic,0,0,512,512);
 	//_ctx.drawImage(document.addonimg,addon[_i].local_x,addon[_i].local_y,addon[_i].size_x,addon[_i].size_y);
-	rotateAndPaintImage(_ctx, document.addonimg, addon[_i].angle, addon[_i].local_x,addon[_i].local_y,addon[_i].size_x,addon[_i].size_y);
+	rotateAndPaintImage(_ctx, document.addonimg, addon[_i].angle, addon[_i].local_x-addon[_i].size_x/2,addon[_i].local_y-addon[_i].size_y/2,addon[_i].size_x,addon[_i].size_y);
 }
 
 function download(){
@@ -198,9 +198,9 @@ Pan.prototype.pan = function(e) {
 			if(!isNaN(document.activeaddon)){
 				if(addon[document.activeaddon].allowmove==1){
 					if(dx>0)
-					  addon[document.activeaddon].angle+=Math.sqrt(dx*dx+dy*dy)/100;
+					  addon[document.activeaddon].angle+=Math.sqrt(dx*dx+dy*dy)/300;
 					else
-					  addon[document.activeaddon].angle-=Math.sqrt(dx*dx+dy*dy)/100;
+					  addon[document.activeaddon].angle-=Math.sqrt(dx*dx+dy*dy)/300;
 					redraw();
 				}   
 			}  
