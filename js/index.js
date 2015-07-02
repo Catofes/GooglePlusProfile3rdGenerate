@@ -99,7 +99,7 @@ function getprofilepic(params) {
 }
 
 function rotateAndPaintImage ( context, image, angleInRad , positionX, positionY, axisX, axisY ) {
-	context.translate( positionX+axisX/2, positionY-axisY/2 );
+	context.translate( positionX+axisX/2, positionY+axisY/2 );
 	context.rotate( angleInRad );
 	context.drawImage( image, 0, 0, axisX, axisY );
 	context.rotate( -angleInRad );
