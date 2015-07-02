@@ -137,6 +137,9 @@ function download(){
 
 
 $("#c_p")[0].div=$("#c_p")[0].parentNode;
+$("#c_p")[0].div.oncontextmenu=function(e){ 
+	return false; 
+};
 $("#c_p")[0].stopEventBubble = function(e) {
 	if (e.preventDefault) {
 		e.preventDefault();
@@ -194,7 +197,10 @@ Pan.prototype.pan = function(e) {
 			this.lastY = (e.offsetY || e.layerY || e.pageY);
 			if(!isNaN(document.activeaddon)){
 				if(addon[document.activeaddon].allowmove==1){
-					addon[document.activeaddon].angle+=dx/Math.abs(dx)*Math.sqrt(dx*dx+dy*dy)/100;
+					if(dx>0)
+					  addon[document.activeaddon].angle+=Math.sqrt(dx*dx+dy*dy)/100;
+					else
+					  addon[document.activeaddon].angle-=Math.sqrt(dx*dx+dy*dy)/100;
 					redraw();
 				}   
 			}  
